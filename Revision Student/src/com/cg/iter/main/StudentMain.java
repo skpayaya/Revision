@@ -4,25 +4,33 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
 
 import com.cg.iter.bean.Address;
 import com.cg.iter.bean.Student;
 import com.cg.iter.service.StudentService;
 
+@Component
 public class StudentMain {
 
-
+	@Autowired
 	private StudentService studService;
 
-	public StudentMain() {
+	public static void main(String[] args) {
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("student.xml");
+		StudentMain sm = ctx.getBean(StudentMain.class);
+		sm.startApplication();
+	}
+	public void startApplication() {
 
-		AnnotationConfigApplicationContext appContext = new AnnotationConfigApplicationContext();	
-		appContext.scan("com.cg.iter");
-		appContext.refresh();
-		studService = (StudentService) appContext.getBean("studentService");
-		System.out.println(studService);
-		Scanner scan = new Scanner(System.in);int choice = 0;
+//		AnnotationConfigApplicationContext appContext = new AnnotationConfigApplicationContext();	
+//		appContext.scan("com.cg.iter");
+//		appContext.refresh();
+//		studService = (StudentService) appContext.getBean("studentService");
+		Scanner scan = new Scanner(System.in);
+		int choice;
 		while (true) {
 			choice = getChoice(scan);
 			switch (choice) {
@@ -112,11 +120,11 @@ public class StudentMain {
 	private int getChoice(Scanner scan) {
 		int choice = 0;
 		System.out.println("STUDENT MANAGEMENT");
-		System.out.println("1. Create Student");
-		System.out.println("2. Find Student");
+		System.out.println("1. Add Student");
+		System.out.println("2. Find Student by ID");
 		System.out.println("3. Update Student");
 		System.out.println("4. Delete Student");
-		System.out.println("5. Find Student Names");
+		System.out.println("5. Find Student By Name");
 		System.out.println("6. Exit Program");
 		System.out.println("Choose the option from above");
 		try {
@@ -129,8 +137,6 @@ public class StudentMain {
 	}		
 
 
-	public static void main(String[] args) {
-		new StudentMain();
-	}
+	
 
 }

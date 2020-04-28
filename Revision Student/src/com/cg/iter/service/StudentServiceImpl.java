@@ -3,18 +3,16 @@ package com.cg.iter.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.cg.iter.bean.Student;
 import com.cg.iter.dao.StudentDao;
 
-@Service("studentService")
+@Service
 public class StudentServiceImpl implements StudentService {
 	@Autowired
     private StudentDao studDao;
-	public StudentServiceImpl() {
-		System.out.println("stud service constr");
-	}
 	@Override
 	public boolean create(Student stud) {
 		return studDao.create(stud);
